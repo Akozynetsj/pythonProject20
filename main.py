@@ -1,23 +1,57 @@
-#2
-class UserNotFoundError(Exception):
-    def __init__(self, username):
-        self.username = username
-class UserDatabase:
-    def __init__(self):
-        self.vocabulary = {"sjds": {"name": "Andrew", "age": 18},
-            "rgrgt": {"name": "Nil", "age": 16},
-            "ber3m34": {"name": "Kevin", "age": 23} }
+#3
+class ValueError(Exception):
+    def __init__(self, temperature):
+        self.temperature = temperature
 
-    def get_user(self, username):
-        if username in self.vocabulary:
-            return self.vocabulary[username]
-        else:
-            raise UserNotFoundError(username)
+class TemperatureConverter:
+    def celsium_to_farengeit(self, celsium):
+        if celsium < -273:
+            raise ValueError(celsium)
+        return celsium * 9/5 + 32
 
-database = UserDatabase()
+    def farengeit_to_celsium(self, farengeit):
+        if farengeit < -460:
+            raise ValueError(farengeit)
+        return (farengeit - 32) * 5/9
+
+converter = TemperatureConverter()
+
 try:
-    user = database.get_user("rgrgt")
-    print(f"Користувач {user} є в цій базі даних")
-except UserNotFoundError as a:
-    print(f"Користувача {a.username} немає в цій базі даних\n"
-          f"Спробуйте ще раз")
+    temp_1 = converter.celsium_to_farengeit(20)
+    print(f"Температура у Фаренгейтах: {temp_1}")
+except ValueError as a:
+    print(f"Температура {a.temperature} нижче абсолютного нуля")
+
+try:
+    temp_2 = converter.farengeit_to_celsium(50)
+    print(f"Температура у Цельсіях: {temp_2}")
+except ValueError as b:
+    print(f"Температура {b.temperature} нижче абсолютного нуля")#3
+class ValueError(Exception):
+    def __init__(self, temperature):
+        self.temperature = temperature
+
+class TemperatureConverter:
+    def celsium_to_farengeit(self, celsium):
+        if celsium < -273:
+            raise ValueError(celsium)
+        return celsium * 9/5 + 32
+
+    def farengeit_to_celsium(self, farengeit):
+        if farengeit < -460:
+            raise ValueError(farengeit)
+        return (farengeit - 32) * 5/9
+
+converter = TemperatureConverter()
+
+try:
+    temp_1 = converter.celsium_to_farengeit(20)
+    print(f"Температура у Фаренгейтах: {temp_1}")
+except ValueError as a:
+    print(f"Температура {a.temperature} нижче абсолютного нуля")
+
+try:
+    temp_2 = converter.farengeit_to_celsium(50)
+    print(f"Температура у Цельсіях: {temp_2}")
+except ValueError as b:
+    print(f"Температура {b.temperature} нижче абсолютного нуля")
