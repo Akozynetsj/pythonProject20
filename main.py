@@ -1,17 +1,23 @@
-#1
-class InvalidUrlError(Exception):
-    def __init__(self, url):
-        self.url = url
-def fetch_data_from_url(url):
-    if url != "https://mystat.itstep.org/ua/main/homework/page/index":
-        raise InvalidUrlError(url)
-    else:
-        print("Успішно!")
-        print()
+#2
+class UserNotFoundError(Exception):
+    def __init__(self, username):
+        self.username = username
+class UserDatabase:
+    def __init__(self):
+        self.vocabulary = {"sjds": {"name": "Andrew", "age": 18},
+            "rgrgt": {"name": "Nil", "age": 16},
+            "ber3m34": {"name": "Kevin", "age": 23} }
+
+    def get_user(self, username):
+        if username in self.vocabulary:
+            return self.vocabulary[username]
+        else:
+            raise UserNotFoundError(username)
+
+database = UserDatabase()
 try:
-    print("Вхід до майстату")
-    url = input("Введіть ключ до сайту Mystat:")
-    fetch_data_from_url(url)
-except InvalidUrlError as a:
-    print(f"Невірна силка {a.url}\n"
-          f"Введіть силку правильно")
+    user = database.get_user("rgrgt")
+    print(f"Користувач {user} є в цій базі даних")
+except UserNotFoundError as a:
+    print(f"Користувача {a.username} немає в цій базі даних\n"
+          f"Спробуйте ще раз")
